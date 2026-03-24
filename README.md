@@ -2,7 +2,7 @@
   <img src="docs/assets/rtg-repo-hero.svg" alt="RTG repository hero" width="100%" />
 </p>
 
-<h1 align="center">RTG</h1>
+<h1 align="center">SIMatrix</h1>
 
 <p align="center">
   Local-first eSIMDB scraping, provider curation, local storage, and CSV export in one polished dashboard.
@@ -16,7 +16,7 @@
   <img alt="Tests" src="https://img.shields.io/badge/tests-40%20passed-52f18e.svg">
 </p>
 
-RTG pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
+SIMatrix pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
 
 ## Repository Info
 
@@ -97,7 +97,7 @@ Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
 ## Workflow
 
-1. Launch RTG with the one-click scripts or packaged EXE.
+1. Launch SIMatrix with the one-click scripts or packaged EXE.
 2. Scrape one or more eSIMDB destinations into the local SQLite store.
 3. Filter plans by destination, provider, price, validity, and data.
 4. Curate the provider whitelist from the `More` page.
