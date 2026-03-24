@@ -66,7 +66,7 @@ def _parse_destination_match_mode(raw_value: str | None) -> str:
 @lru_cache(maxsize=1)
 def get_settings() -> Settings:
     project_root = Path(__file__).resolve().parents[1]
-    data_dir = project_root / "data"
+    data_dir = Path(os.getenv("ESIMDB_DATA_DIR", str(project_root / "data")))
     database_path = Path(
         os.getenv("ESIMDB_DATABASE_PATH", str(data_dir / "esimdb.sqlite3"))
     )

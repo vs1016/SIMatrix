@@ -146,6 +146,7 @@ The packaged EXE includes:
 
 Environment variables:
 
+- `ESIMDB_DATA_DIR`: optional runtime data directory override, default `data/`
 - `ESIMDB_BASE_URL`: defaults to `https://esimdb.com`
 - `ESIMDB_DATABASE_PATH`: optional SQLite path override
 - `ESIMDB_SUPPORTED_DESTINATIONS`: comma-separated destination slugs, default `usa`
@@ -163,6 +164,40 @@ Environment variables:
 - Provider page index cache: `data/provider-page-index.json`
 - Destination catalog cache: `data/destination-catalog.json`
 - Provider logos: `data/provider-icons/`
+
+## Deploy On Render
+
+This repo now includes a root-level `render.yaml`, so you can deploy it directly from GitHub on Render as a Python web service.
+
+### Quick Deploy
+
+1. Push this repository to GitHub.
+2. In Render, click `New +` -> `Blueprint`.
+3. Connect your GitHub repo.
+4. Render will detect `render.yaml` and create the web service automatically.
+5. After the deploy finishes, open your `*.onrender.com` URL.
+
+### What Render Uses
+
+- Build command: `pip install -r requirements.txt`
+- Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+- Health check: `/health`
+- Python version: `.python-version` -> `3.14`
+
+### Data Persistence Note
+
+By default, Render web services have an ephemeral filesystem, so SQLite data and cached provider assets will be reset on redeploy or restart.
+
+If you want persistent local data on Render:
+
+1. Upgrade to a Render plan that supports persistent disks.
+2. Attach a disk in Render.
+3. Mount it to a writable path such as `/var/data`.
+4. Set `ESIMDB_DATA_DIR=/var/data`.
+
+If needed, you can also explicitly set:
+
+- `ESIMDB_DATABASE_PATH=/var/data/esimdb.sqlite3`
 
 ## Tests
 
