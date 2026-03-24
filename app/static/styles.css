@@ -687,12 +687,13 @@ html[lang="zh"] .hero-trigger-rich-placeholder {
     position: relative;
     z-index: 1;
     font-family: "Inter", "Segoe UI", sans-serif;
-    background: #282a2b;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow:
-        0 20px 44px rgba(0, 0, 0, 0.24),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-    padding: 28px 22px 22px;
+    background: rgba(28, 29, 29, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 22px 44px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 26px;
+    border-radius: 28px;
     color: #e7e7e4;
 }
 
@@ -1105,6 +1106,29 @@ button:hover,
     box-shadow: none;
 }
 
+.filter-submit,
+.button.ghost.filter-reset,
+.button.secondary.export-link {
+    position: relative;
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.22);
+}
+
+.filter-submit,
+.button.ghost.filter-reset {
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.2),
+        0 10px 24px rgba(29, 86, 217, 0.34),
+        0 24px 44px rgba(29, 86, 217, 0.18);
+}
+
+.button.secondary.export-link {
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.2),
+        0 10px 24px rgba(94, 255, 158, 0.28),
+        0 24px 44px rgba(94, 255, 158, 0.16);
+}
+
 .button.ghost.filter-reset {
     background: #004AD7;
     color: #ffffff;
@@ -1335,10 +1359,10 @@ tbody tr:hover {
 .empty-state {
     padding: 28px;
     border-radius: 22px;
-    background: #191a1a;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.12);
     color: #d2d2cf;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    box-shadow: none;
 }
 
 .empty-state h3 {
@@ -1637,6 +1661,10 @@ tbody tr:hover {
 .docs-submit-button {
     background: #1d56d9;
     color: #f8fbff;
+    box-shadow:
+        0 16px 28px rgba(0, 0, 0, 0.2),
+        0 10px 24px rgba(29, 86, 217, 0.34),
+        0 24px 44px rgba(29, 86, 217, 0.18);
 }
 
 .docs-submit-button:hover,
@@ -1657,6 +1685,10 @@ tbody tr:hover {
     background: #D62308;
     color: #ffffff;
     border: 0;
+    box-shadow:
+        0 14px 24px rgba(0, 0, 0, 0.18),
+        0 8px 20px rgba(214, 35, 8, 0.3),
+        0 20px 34px rgba(214, 35, 8, 0.16);
 }
 
 .docs-manage-hint {
