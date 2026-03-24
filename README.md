@@ -2,6 +2,12 @@
 
 RTG is a local-first eSIMDB scraping and curation tool. It pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
 
+## Repository Info
+
+- Suggested description: `Local-first eSIMDB scraper and dashboard for provider curation, filtering, and CSV export.`
+- Suggested topics: `fastapi`, `sqlite`, `scraper`, `esim`, `csv`, `dashboard`, `jinja2`, `python`
+- License: `MIT`
+
 ## What It Does
 
 - Scrapes destination and provider data from eSIMDB
