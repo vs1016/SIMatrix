@@ -50,33 +50,4 @@
     CSV export, one-click Windows startup, and EXE packaging in one workflow.
   </text>
 
-  <g>
-    <rect x="732" y="108" width="470" height="392" rx="28" fill="url(#panel)" stroke="#333645"/>
-    <rect x="768" y="148" width="398" height="64" rx="18" fill="#F8F9FD"/>
-    <rect x="768" y="232" width="398" height="204" rx="22" fill="#FBFCFF"/>
-    <rect x="768" y="454" width="398" height="18" rx="9" fill="#262831"/>
-
-    <rect x="792" y="170" width="194" height="22" rx="11" fill="#D7DDED"/>
-    <rect x="1010" y="162" width="116" height="36" rx="13" fill="#2B59E8"/>
-
-    <rect x="784" y="250" width="48" height="166" rx="18" fill="#EDF1FB"/>
-    <rect x="792" y="266" width="32" height="28" rx="12" fill="#CDD4E4"/>
-    <rect x="792" y="310" width="32" height="28" rx="12" fill="#E2E6F1"/>
-    <rect x="792" y="354" width="32" height="28" rx="12" fill="#E2E6F1"/>
-
-    <rect x="852" y="248" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
-    <circle cx="880" cy="273" r="10" fill="#F23D5F"/>
-    <rect x="904" y="262" width="118" height="12" rx="6" fill="#202534"/>
-
-    <rect x="852" y="300" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
-    <circle cx="880" cy="325" r="10" fill="#3B87FF"/>
-    <rect x="904" y="314" width="132" height="12" rx="6" fill="#202534"/>
-
-    <rect x="852" y="352" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
-    <circle cx="880" cy="377" r="10" fill="#57C989"/>
-    <rect x="904" y="366" width="146" height="12" rx="6" fill="#202534"/>
-
-    <rect x="852" y="412" width="128" height="28" rx="14" fill="#2B59E8"/>
-    <rect x="996" y="412" width="78" height="28" rx="14" fill="#59F297"/>
-  </g>
 </svg>
