@@ -37,8 +37,8 @@ RTG pulls public plan data from `esimdb.com`, stores everything in a local SQLit
 ## Product Preview
 
 <p align="center">
-  <img src="docs/assets/rtg-home-panel.svg" alt="RTG home dashboard preview" width="48%" />
-  <img src="docs/assets/rtg-more-panel.svg" alt="RTG provider registry preview" width="48%" />
+  <img src="docs/assets/rtg-home-preview.png" alt="RTG home dashboard preview" width="48%" />
+  <img src="docs/assets/rtg-provider-registry-preview.png" alt="RTG provider registry preview" width="48%" />
 </p>
 
 ## Highlights
