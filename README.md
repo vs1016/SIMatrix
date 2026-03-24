@@ -16,7 +16,24 @@
   <img alt="Tests" src="https://img.shields.io/badge/tests-40%20passed-52f18e.svg">
 </p>
 
+<p align="center">
+  <a href="https://simatrix.onrender.com/?lang=en"><strong>Live Demo</strong></a> · Open the hosted Render deployment to explore the English dashboard instantly.
+</p>
+
 SIMatrix pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
+
+## Live Demo
+
+- English demo: [https://simatrix.onrender.com/?lang=en](https://simatrix.onrender.com/?lang=en)
+- Hosted on Render for quick product preview and sharing without local setup
+- Best for UI walkthroughs and basic exploration; local mode remains the recommended workflow for persistent SQLite data and repeat scraping
+
+## Map Interaction Panel
+
+- The home dashboard includes an interactive world map panel tied to the destination picker
+- Hover and selection states help users visually locate supported destinations before scraping
+- Choosing a country from the map-linked picker updates the scrape target input for a faster workflow
+- The map panel is designed as a quick exploration surface, while the data table remains the main place for filtering, comparison, and CSV export
 
 ## Repository Info
 
