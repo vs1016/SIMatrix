@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/rtg-repo-hero.svg" alt="SIMatrix repository hero" width="100%" />
+  <img src="docs/assets/SIMatrix-repo-hero.svg" alt="SIMatrix repository hero" width="100%" />
 </p>
 
 <h1 align="center">SIMatrix</h1>
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vs1016/Rtg.pinky/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-1f56e0.svg"></a>
+  <a href="https://github.com/vs1016/SIMatrix/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-1f56e0.svg"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.14-101828.svg">
   <img alt="Framework" src="https://img.shields.io/badge/framework-FastAPI-11b981.svg">
   <img alt="Storage" src="https://img.shields.io/badge/storage-SQLite-475467.svg">
