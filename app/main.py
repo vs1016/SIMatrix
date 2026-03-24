@@ -33,7 +33,7 @@ DESTINATION_CATALOG_REFRESH_INTERVAL = timedelta(hours=12)
 
 TRANSLATIONS = {
     "en": {
-        "page_title": "RTG.1209",
+        "page_title": "SIMatrix",
         "hero_title_line_1": "A local-first pipeline",
         "hero_title_line_2_prefix": "for",
         "hero_title_highlight": "eSIMDB",
@@ -83,7 +83,7 @@ TRANSLATIONS = {
         "scrape_failed": "Scrape failed: {error}",
         "docs_page_title": "Provider Registry",
         "docs_heading": "Manage active providers",
-        "docs_lede": "Paste a provider website like https://bytesim.com. RTG will parse the slug, display name, and logo automatically, then keep the provider in the local registry for future scrapes.",
+        "docs_lede": "Paste a provider website like https://bytesim.com. SIMatrix will parse the slug, display name, and logo automatically, then keep the provider in the local registry for future scrapes.",
         "docs_form_title": "Add provider",
         "docs_form_body": "Use a provider website URL like https://bytesim.com or an eSIMDB provider page URL.",
         "docs_url_label": "Provider website URL",
@@ -109,7 +109,7 @@ TRANSLATIONS = {
         "docs_submit_loading": "Parsing...",
     },
     "zh": {
-        "page_title": "RTG.1209",
+        "page_title": "SIMatrix",
         "hero_title_line_1": "\u4e00\u6761\u672c\u5730\u4f18\u5148\u7684",
         "hero_title_line_2_prefix": "",
         "hero_title_highlight": "eSIMDB",
@@ -159,7 +159,7 @@ TRANSLATIONS = {
         "scrape_failed": "\u6293\u53d6\u5931\u8d25\uff1a{error}",
         "docs_page_title": "\u8fd0\u8425\u5546\u7ba1\u7406",
         "docs_heading": "\u7ba1\u7406\u5f53\u524d\u542f\u7528\u7684\u8fd0\u8425\u5546",
-        "docs_lede": "\u7c98\u8d34\u8fd0\u8425\u5546\u7f51\u7ad9 URL\uff0c\u4f8b\u5982 https://bytesim.com\u3002RTG \u4f1a\u81ea\u52a8\u89e3\u6790 slug\u3001\u663e\u793a\u540d\u79f0\u548c logo\uff0c\u5e76\u5c06\u5176\u4fdd\u5b58\u5230\u672c\u5730\u8fd0\u8425\u5546\u5217\u8868\u91cc\uff0c\u4f9b\u540e\u7eed\u6293\u53d6\u4f7f\u7528\u3002",
+        "docs_lede": "\u7c98\u8d34\u8fd0\u8425\u5546\u7f51\u7ad9 URL\uff0c\u4f8b\u5982 https://bytesim.com\u3002SIMatrix \u4f1a\u81ea\u52a8\u89e3\u6790 slug\u3001\u663e\u793a\u540d\u79f0\u548c logo\uff0c\u5e76\u5c06\u5176\u4fdd\u5b58\u5230\u672c\u5730\u8fd0\u8425\u5546\u5217\u8868\u91cc\uff0c\u4f9b\u540e\u7eed\u6293\u53d6\u4f7f\u7528\u3002",
         "docs_form_title": "\u65b0\u589e\u8fd0\u8425\u5546",
         "docs_form_body": "\u8bf7\u8f93\u5165\u8fd0\u8425\u5546\u7f51\u7ad9 URL\uff0c\u4f8b\u5982 https://bytesim.com\uff0c\u4e5f\u652f\u6301 eSIMDB \u7684 provider \u9875\u9762 URL\u3002",
         "docs_url_label": "\u8fd0\u8425\u5546\u7f51\u7ad9 URL",

@@ -69,7 +69,7 @@ def test_dashboard_empty_state(client) -> None:
     assert "FILTERABLE EXPORT" not in response.text
     assert 'id="loading-overlay"' in response.text
     assert "Latest Run" not in response.text
-    assert "RTG." in response.text
+    assert "SIMatrix" in response.text
     assert "More" in response.text
     assert 'class="hero-stage"' in response.text
     assert 'class="hero-map-stage"' in response.text
@@ -102,7 +102,7 @@ def test_dashboard_supports_chinese_language_toggle(client) -> None:
     test_client, _ = client
     response = test_client.get("/?lang=zh")
     assert response.status_code == 200
-    assert "RTG" in response.text
+    assert "SIMatrix" in response.text
     assert "loading-overlay" in response.text
     assert "\u5f00\u59cb\u6293\u53d6" in response.text
     assert "\u4e0b\u8f7d CSV" in response.text

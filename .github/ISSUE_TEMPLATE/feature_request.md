@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an improvement for RTG
+about: Suggest an improvement for SIMatrix
 title: "[Feature] "
 labels: enhancement
 assignees: ""

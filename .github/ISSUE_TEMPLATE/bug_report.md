@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report a bug or regression in RTG
+about: Report a bug or regression in SIMatrix
 title: "[Bug] "
 labels: bug
 assignees: ""

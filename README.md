@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/rtg-repo-hero.svg" alt="RTG repository hero" width="100%" />
+  <img src="docs/assets/rtg-repo-hero.svg" alt="SIMatrix repository hero" width="100%" />
 </p>
 
 <h1 align="center">SIMatrix</h1>
@@ -31,21 +31,22 @@ SIMatrix pulls public plan data from `esimdb.com`, stores everything in a local 
 - Stores plans in SQLite for fast local filtering
 - Provides a dashboard UI in English and Chinese
 - Supports provider whitelist management from the `More` page
+- Lets you freely add and maintain custom supplier/provider records in the active registry
 - Exports the current filtered view to CSV
 - Ships with one-click Windows startup scripts and an EXE packaging flow
 
 ## Product Preview
 
 <p align="center">
-  <img src="docs/assets/Homepage.png" alt="RTG home dashboard preview" width="48%" />
-  <img src="docs/assets/ProviderRegistry.png" alt="RTG provider registry preview" width="48%" />
+  <img src="docs/assets/SIMatrix.png" alt="SIMatrix home dashboard preview" width="48%" />
+  <img src="docs/assets/Provider Registry.png" alt="SIMatrix provider registry preview" width="48%" />
 </p>
 
 ## Highlights
 
 - Local-first workflow with no required hosted backend
 - Bilingual dashboard with English and Chinese copy
-- Destination mega-dropdown, provider registry, and CSV export
+- Destination mega-dropdown, flexible provider registry, and CSV export
 - Concurrent provider scraping with local caching for faster reruns
 - One-click Windows scripts and an EXE packaging pipeline
 
@@ -137,6 +138,7 @@ The packaged EXE includes:
 
 - add a provider using either an official provider website or an eSIMDB provider page
 - parse and persist provider slug, display name, and logo automatically
+- freely extend the active supplier/provider registry with your own entries as needed
 - view current active providers
 - delete providers from the active whitelist
 

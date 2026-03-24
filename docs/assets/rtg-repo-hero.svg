@@ -1,21 +1,21 @@
 <svg width="1280" height="640" viewBox="0 0 1280 640" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="120" y1="48" x2="1168" y2="592" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#080A12"/>
-      <stop offset="0.52" stop-color="#141129"/>
-      <stop offset="1" stop-color="#19132D"/>
+    <linearGradient id="bg" x1="100" y1="44" x2="1172" y2="604" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#090B13"/>
+      <stop offset="0.48" stop-color="#17132B"/>
+      <stop offset="1" stop-color="#1E1533"/>
     </linearGradient>
-    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 548) rotate(-27.3552) scale(378.716 174.186)">
-      <stop stop-color="#2148FF" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#2148FF" stop-opacity="0"/>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(208 522) rotate(-19.8) scale(336 182)">
+      <stop stop-color="#2C56FF" stop-opacity="0.46"/>
+      <stop offset="1" stop-color="#2C56FF" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1044 160) rotate(148.633) scale(278.345 138.746)">
-      <stop stop-color="#52F18E" stop-opacity="0.24"/>
-      <stop offset="1" stop-color="#52F18E" stop-opacity="0"/>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1040 128) rotate(147) scale(286 152)">
+      <stop stop-color="#57F59A" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#57F59A" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="panel" x1="774" y1="128" x2="1134" y2="458" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#1A1B21"/>
-      <stop offset="1" stop-color="#16171D"/>
+    <linearGradient id="panel" x1="768" y1="114" x2="1140" y2="492" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1D1E24"/>
+      <stop offset="1" stop-color="#17181F"/>
     </linearGradient>
   </defs>
 
@@ -23,60 +23,60 @@
   <rect width="1280" height="640" rx="28" fill="url(#glowA)"/>
   <rect width="1280" height="640" rx="28" fill="url(#glowB)"/>
 
-  <g opacity="0.14" stroke="#8890B2">
-    <path d="M0 104H1280"/>
-    <path d="M0 196H1280"/>
-    <path d="M0 288H1280"/>
-    <path d="M0 380H1280"/>
-    <path d="M0 472H1280"/>
-    <path d="M120 0V640"/>
-    <path d="M304 0V640"/>
-    <path d="M488 0V640"/>
-    <path d="M672 0V640"/>
-    <path d="M856 0V640"/>
-    <path d="M1040 0V640"/>
+  <g opacity="0.14" stroke="#8D92AF">
+    <path d="M0 98H1280"/>
+    <path d="M0 190H1280"/>
+    <path d="M0 282H1280"/>
+    <path d="M0 374H1280"/>
+    <path d="M0 466H1280"/>
+    <path d="M116 0V640"/>
+    <path d="M300 0V640"/>
+    <path d="M484 0V640"/>
+    <path d="M668 0V640"/>
+    <path d="M852 0V640"/>
+    <path d="M1036 0V640"/>
   </g>
 
-  <text x="86" y="106" fill="white" font-size="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-style="italic" font-weight="800">RTG.</text>
+  <text x="84" y="102" fill="white" font-size="42" font-family="Inter, Segoe UI, Arial, sans-serif" font-style="italic" font-weight="800">SIMatrix</text>
 
-  <text x="86" y="220" fill="white" font-size="86" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">Local-first eSIMDB</text>
-  <text x="86" y="314" fill="white" font-size="86" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">scraping and curation</text>
-  <text x="86" y="408" fill="#2F68FF" font-size="86" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">dashboard</text>
+  <text x="84" y="214" fill="white" font-size="82" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">Local-first eSIM</text>
+  <text x="84" y="304" fill="white" font-size="82" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">scraping and curation</text>
+  <text x="84" y="394" fill="#3A6BFF" font-size="82" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="800">dashboard</text>
 
-  <text x="90" y="482" fill="#C8CCD8" font-size="28" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="500">
-    Provider registry, local SQLite storage, CSV export, bilingual UI,
+  <text x="88" y="474" fill="#CFD3DF" font-size="28" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="500">
+    Provider registry, freely extensible supplier records, local SQLite storage,
   </text>
-  <text x="90" y="520" fill="#C8CCD8" font-size="28" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="500">
-    one-click Windows startup, and EXE packaging in one workflow.
+  <text x="88" y="512" fill="#CFD3DF" font-size="28" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="500">
+    CSV export, one-click Windows startup, and EXE packaging in one workflow.
   </text>
 
   <g>
-    <rect x="736" y="112" width="458" height="384" rx="28" fill="url(#panel)" stroke="#323543"/>
-    <rect x="774" y="154" width="382" height="60" rx="16" fill="#F7F8FC"/>
-    <rect x="774" y="236" width="382" height="196" rx="20" fill="#FCFCFE"/>
-    <rect x="774" y="454" width="382" height="18" rx="9" fill="#23252D"/>
+    <rect x="732" y="108" width="470" height="392" rx="28" fill="url(#panel)" stroke="#333645"/>
+    <rect x="768" y="148" width="398" height="64" rx="18" fill="#F8F9FD"/>
+    <rect x="768" y="232" width="398" height="204" rx="22" fill="#FBFCFF"/>
+    <rect x="768" y="454" width="398" height="18" rx="9" fill="#262831"/>
 
-    <rect x="798" y="173" width="176" height="22" rx="11" fill="#D5DBEA"/>
-    <rect x="1000" y="168" width="132" height="32" rx="12" fill="#1F56E0"/>
+    <rect x="792" y="170" width="194" height="22" rx="11" fill="#D7DDED"/>
+    <rect x="1010" y="162" width="116" height="36" rx="13" fill="#2B59E8"/>
 
-    <rect x="790" y="252" width="48" height="164" rx="18" fill="#EDF1FB"/>
-    <rect x="798" y="268" width="32" height="28" rx="12" fill="#CCD3E2"/>
-    <rect x="798" y="312" width="32" height="28" rx="12" fill="#E2E6F0"/>
-    <rect x="798" y="356" width="32" height="28" rx="12" fill="#E2E6F0"/>
+    <rect x="784" y="250" width="48" height="166" rx="18" fill="#EDF1FB"/>
+    <rect x="792" y="266" width="32" height="28" rx="12" fill="#CDD4E4"/>
+    <rect x="792" y="310" width="32" height="28" rx="12" fill="#E2E6F1"/>
+    <rect x="792" y="354" width="32" height="28" rx="12" fill="#E2E6F1"/>
 
-    <rect x="860" y="252" width="272" height="48" rx="12" fill="#FFFFFF" stroke="#E8EBF3"/>
-    <circle cx="886" cy="276" r="10" fill="#E83A59"/>
-    <rect x="908" y="265" width="116" height="12" rx="6" fill="#202430"/>
+    <rect x="852" y="248" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
+    <circle cx="880" cy="273" r="10" fill="#F23D5F"/>
+    <rect x="904" y="262" width="118" height="12" rx="6" fill="#202534"/>
 
-    <rect x="860" y="300" width="272" height="48" rx="12" fill="#FFFFFF" stroke="#E8EBF3"/>
-    <circle cx="886" cy="324" r="10" fill="#2E88FF"/>
-    <rect x="908" y="313" width="130" height="12" rx="6" fill="#202430"/>
+    <rect x="852" y="300" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
+    <circle cx="880" cy="325" r="10" fill="#3B87FF"/>
+    <rect x="904" y="314" width="132" height="12" rx="6" fill="#202534"/>
 
-    <rect x="860" y="348" width="272" height="48" rx="12" fill="#FFFFFF" stroke="#E8EBF3"/>
-    <circle cx="886" cy="372" r="10" fill="#59C37D"/>
-    <rect x="908" y="361" width="146" height="12" rx="6" fill="#202430"/>
+    <rect x="852" y="352" width="286" height="50" rx="13" fill="#FFFFFF" stroke="#E8EBF4"/>
+    <circle cx="880" cy="377" r="10" fill="#57C989"/>
+    <rect x="904" y="366" width="146" height="12" rx="6" fill="#202534"/>
 
-    <rect x="860" y="412" width="126" height="28" rx="14" fill="#275FFF"/>
-    <rect x="1002" y="412" width="78" height="28" rx="14" fill="#53ED8F"/>
+    <rect x="852" y="412" width="128" height="28" rx="14" fill="#2B59E8"/>
+    <rect x="996" y="412" width="78" height="28" rx="14" fill="#59F297"/>
   </g>
 </svg>

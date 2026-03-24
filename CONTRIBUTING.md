@@ -1,4 +1,4 @@
-# Contributing to RTG
+# Contributing to SIMatrix
 
 Thanks for contributing.
 
