@@ -1,6 +1,22 @@
-# RTG
+<p align="center">
+  <img src="docs/assets/rtg-repo-hero.svg" alt="RTG repository hero" width="100%" />
+</p>
 
-RTG is a local-first eSIMDB scraping and curation tool. It pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
+<h1 align="center">RTG</h1>
+
+<p align="center">
+  Local-first eSIMDB scraping, provider curation, local storage, and CSV export in one polished dashboard.
+</p>
+
+<p align="center">
+  <a href="https://github.com/vs1016/Rtg.pinky/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-1f56e0.svg"></a>
+  <img alt="Python" src="https://img.shields.io/badge/python-3.14-101828.svg">
+  <img alt="Framework" src="https://img.shields.io/badge/framework-FastAPI-11b981.svg">
+  <img alt="Storage" src="https://img.shields.io/badge/storage-SQLite-475467.svg">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-40%20passed-52f18e.svg">
+</p>
+
+RTG pulls public plan data from `esimdb.com`, stores everything in a local SQLite database, lets you explore the results in a polished dashboard, and exports filtered datasets as CSV.
 
 ## Repository Info
 
@@ -17,6 +33,21 @@ RTG is a local-first eSIMDB scraping and curation tool. It pulls public plan dat
 - Supports provider whitelist management from the `More` page
 - Exports the current filtered view to CSV
 - Ships with one-click Windows startup scripts and an EXE packaging flow
+
+## Product Preview
+
+<p align="center">
+  <img src="docs/assets/rtg-home-panel.svg" alt="RTG home dashboard preview" width="48%" />
+  <img src="docs/assets/rtg-more-panel.svg" alt="RTG provider registry preview" width="48%" />
+</p>
+
+## Highlights
+
+- Local-first workflow with no required hosted backend
+- Bilingual dashboard with English and Chinese copy
+- Destination mega-dropdown, provider registry, and CSV export
+- Concurrent provider scraping with local caching for faster reruns
+- One-click Windows scripts and an EXE packaging pipeline
 
 ## Stack
 
@@ -63,6 +94,14 @@ python launcher.py
 ```
 
 Then open [http://127.0.0.1:8000](http://127.0.0.1:8000).
+
+## Workflow
+
+1. Launch RTG with the one-click scripts or packaged EXE.
+2. Scrape one or more eSIMDB destinations into the local SQLite store.
+3. Filter plans by destination, provider, price, validity, and data.
+4. Curate the provider whitelist from the `More` page.
+5. Export the current view as CSV.
 
 ## One-Click EXE Build
 

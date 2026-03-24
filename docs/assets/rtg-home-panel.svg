@@ -1,0 +1,17 @@
+<svg width="900" height="520" viewBox="0 0 900 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="520" rx="28" fill="#0E0F16"/>
+  <rect x="24" y="24" width="852" height="68" rx="20" fill="#F7F8FC"/>
+  <rect x="42" y="46" width="218" height="20" rx="10" fill="#CCD3E2"/>
+  <rect x="286" y="44" width="116" height="24" rx="12" fill="#D9DEEA"/>
+  <rect x="706" y="34" width="152" height="48" rx="16" fill="#1F56E0"/>
+  <rect x="24" y="108" width="852" height="388" rx="24" fill="#202126"/>
+  <rect x="44" y="134" width="220" height="120" rx="22" fill="#17181C"/>
+  <rect x="286" y="134" width="270" height="52" rx="16" fill="#17181C"/>
+  <rect x="576" y="134" width="280" height="52" rx="16" fill="#17181C"/>
+  <rect x="286" y="206" width="270" height="52" rx="16" fill="#17181C"/>
+  <rect x="576" y="206" width="280" height="52" rx="16" fill="#17181C"/>
+  <rect x="608" y="286" width="136" height="58" rx="20" fill="#1F56E0"/>
+  <rect x="760" y="286" width="96" height="58" rx="20" fill="#53ED8F"/>
+  <rect x="44" y="386" width="812" height="82" rx="24" fill="#17181C"/>
+  <text x="44" y="40" fill="white" font-size="20" font-family="Inter, Segoe UI, Arial, sans-serif" font-weight="700">RTG Home</text>
+</svg>
