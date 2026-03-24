@@ -10,6 +10,11 @@ from urllib.parse import urlencode
 
 import httpx
 from fastapi import FastAPI, Form, Query, Request
+from fastapi.openapi.docs import (
+    get_redoc_html,
+    get_swagger_ui_html,
+    get_swagger_ui_oauth2_redirect_html,
+)
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -703,8 +708,8 @@ def create_app(
     app = FastAPI(
         title="RTG Local eSIMDB Scraper",
         lifespan=lifespan,
-        docs_url="/api/docs",
-        redoc_url="/api/redoc",
+        docs_url=None,
+        redoc_url=None,
     )
     app.state.settings = resolved_settings
     app.state.repository = resolved_repository
@@ -747,6 +752,36 @@ def create_app(
         StaticFiles(directory=str(resolved_settings.provider_icon_dir)),
         name="provider-icons",
     )
+
+    def force_desktop_docs_viewport(html: str) -> str:
+        return html.replace(
+            'content="width=device-width, initial-scale=1.0"',
+            'content="width=1280, initial-scale=1.0"',
+        ).replace(
+            'content="width=device-width, initial-scale=1"',
+            'content="width=1280, initial-scale=1.0"',
+        )
+
+    @app.get("/docs/oauth2-redirect", include_in_schema=False)
+    def swagger_ui_redirect() -> HTMLResponse:
+        return get_swagger_ui_oauth2_redirect_html()
+
+    @app.get("/api/docs", include_in_schema=False)
+    def custom_swagger_ui() -> HTMLResponse:
+        response = get_swagger_ui_html(
+            openapi_url=app.openapi_url,
+            title=f"{app.title} - Swagger UI",
+            oauth2_redirect_url="/docs/oauth2-redirect",
+        )
+        return HTMLResponse(force_desktop_docs_viewport(response.body.decode("utf-8")))
+
+    @app.get("/api/redoc", include_in_schema=False)
+    def custom_redoc() -> HTMLResponse:
+        response = get_redoc_html(
+            openapi_url=app.openapi_url,
+            title=f"{app.title} - ReDoc",
+        )
+        return HTMLResponse(force_desktop_docs_viewport(response.body.decode("utf-8")))
 
     def start_background_scrape(
         destination_slugs: list[str],

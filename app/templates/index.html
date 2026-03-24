@@ -11,7 +11,7 @@
     <link rel="preload" as="image" href="{{ url_for('static', path='/rVeEH3OBGYbNyXqzdJ03O9C9.png') }}" type="image/png">
     <link rel="preload" as="image" href="{{ url_for('static', path='/worldmap.svg') }}" type="image/svg+xml">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20260325-mobile-width-fix-9">
 </head>
 <body>
     <div class="app-gradient-bg" aria-hidden="true">
@@ -25,7 +25,7 @@
         </div>
     </div>
     <main class="shell">
-        <header class="topbar startup-reveal" style="--reveal-delay: 0ms;">
+        <header class="topbar home-topbar startup-reveal" style="--reveal-delay: 0ms;">
             <a class="brand-mark" href="/?lang={{ lang }}">SIMatrix</a>
             <nav class="topbar-nav" aria-label="Top navigation">
                 <a class="topbar-link topbar-language-toggle" href="/?lang={{ alt_lang }}">

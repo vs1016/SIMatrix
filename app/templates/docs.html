@@ -9,14 +9,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}?v=20260325-mobile-width-fix-9">
 </head>
 <body class="docs-page">
     <div class="app-gradient-bg" aria-hidden="true">
         <div class="app-gradient-grid"></div>
     </div>
     <main class="shell docs-shell">
-        <header class="topbar startup-reveal" style="--reveal-delay: 0ms;">
+        <header class="topbar docs-topbar startup-reveal" style="--reveal-delay: 0ms;">
             <a class="brand-mark" href="/?lang={{ lang }}">SIMatrix</a>
             <nav class="topbar-nav" aria-label="Top navigation">
                 <a class="topbar-link topbar-language-toggle" href="/docs?lang={{ alt_lang }}">
