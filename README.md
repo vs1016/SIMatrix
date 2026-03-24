@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/vs1016/SIMatrix/blob/main/LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-1f56e0.svg"></a>
   <img alt="Python" src="https://img.shields.io/badge/python-3.14-101828.svg">
   <img alt="Framework" src="https://img.shields.io/badge/framework-FastAPI-11b981.svg">
   <img alt="Storage" src="https://img.shields.io/badge/storage-SQLite-475467.svg">
@@ -39,7 +38,6 @@ SIMatrix pulls public plan data from `esimdb.com`, stores everything in a local 
 
 - Suggested description: `Local-first eSIMDB scraper and dashboard for provider curation, filtering, and CSV export.`
 - Suggested topics: `fastapi`, `sqlite`, `scraper`, `esim`, `csv`, `dashboard`, `jinja2`, `python`
-- License: `MIT`
 
 ## What It Does
 
