@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.page_title }}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/brand-icon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', path='/brand-icon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="{{ url_for('static', path='/rVeEH3OBGYbNyXqzdJ03O9C9.png') }}" type="image/png">
+    <link rel="preload" as="image" href="{{ url_for('static', path='/worldmap.svg') }}" type="image/svg+xml">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body>
+    <div class="app-gradient-bg" aria-hidden="true">
+        <div class="app-gradient-grid"></div>
+    </div>
+    <div id="loading-overlay" class="loading-overlay is-hidden" aria-hidden="true">
+        <div class="loading-card" role="status" aria-live="polite">
+            <div class="loading-spinner"></div>
+            <h2>{{ t.loading_title }}</h2>
+            <p>{{ t.loading_body }}</p>
+        </div>
+    </div>
+    <main class="shell">
+        <header class="topbar startup-reveal" style="--reveal-delay: 0ms;">
+            <a class="brand-mark" href="/?lang={{ lang }}">RTG.</a>
+            <nav class="topbar-nav" aria-label="Top navigation">
+                <a class="topbar-link topbar-language-toggle" href="/?lang={{ alt_lang }}">
+                    <span>{{ t.language_zh }}</span>
+                    <span class="topbar-separator">/</span>
+                    <span>{{ t.language_en }}</span>
+                </a>
+                <a class="topbar-link topbar-docs" href="/docs?lang={{ lang }}" target="_blank" rel="noreferrer">{{ t.docs }}</a>
+            </nav>
+        </header>
+        {% if message %}
+            <div class="banner banner-success startup-reveal" style="--reveal-delay: 60ms;">{{ message }}</div>
+        {% endif %}
+        {% if error %}
+            <div class="banner banner-error startup-reveal" style="--reveal-delay: 60ms;">{{ error }}</div>
+        {% endif %}
+
+        <section class="hero-stage">
+            <div class="hero-copy-block">
+                <h1 class="hero-title startup-reveal" style="--reveal-delay: 120ms;">{{ t.hero_title_line_1 }}<br>{% if t.hero_title_line_2_prefix %}{{ t.hero_title_line_2_prefix }} {% endif %}<span class="hero-title-accent">{{ t.hero_title_highlight }}</span>{% if t.hero_title_line_2_suffix %} {{ t.hero_title_line_2_suffix }}{% endif %}<br>{{ t.hero_title_line_3 }}</h1>
+                <p class="hero-subtitle startup-reveal" style="--reveal-delay: 180ms;">{{ t.hero_lede }}</p>
+                <form method="post" action="/scrape" class="hero-form startup-reveal" style="--reveal-delay: 240ms;" data-scrape-form>
+                    <input type="hidden" name="lang" value="{{ lang }}">
+                    <div class="destination-picker hero-destination-picker" data-destination-picker>
+                        <input
+                            type="hidden"
+                            name="destinations"
+                            value="{{ selected_scrape_destinations|join(',') }}"
+                            data-destination-value
+                        >
+                        <input
+                            type="text"
+                            class="hero-trigger-input"
+                            placeholder="{{ destination_picker_placeholder }}"
+                            autocomplete="off"
+                            spellcheck="false"
+                            data-destination-trigger
+                            data-destination-search
+                        >
+                        <div class="hero-trigger-rich-placeholder" aria-hidden="true" data-destination-rich-placeholder>
+                            <span>{{ t.destination_picker_prefix }}</span>
+                            <strong>{{ available_scrape_destinations_count }}</strong>
+                            <span>{{ t.destination_picker_suffix }}</span>
+                        </div>
+                        <div class="destination-picker-menu is-hidden" data-destination-menu>
+                            <div class="destination-picker-panel">
+                                <div class="destination-letter-index" data-destination-index>
+                                    {% for group in available_scrape_destination_groups %}
+                                        <button
+                                            type="button"
+                                            class="destination-letter-link"
+                                            data-destination-index-link
+                                            data-letter="{{ group['letter'] }}"
+                                        >
+                                            {{ group['letter'] }}
+                                        </button>
+                                    {% endfor %}
+                                </div>
+                                <div class="destination-group-list" data-destination-options>
+                                    {% for group in available_scrape_destination_groups %}
+                                        <section
+                                            class="destination-group"
+                                            data-destination-group
+                                            data-letter="{{ group['letter'] }}"
+                                            id="destination-group-{{ group['letter'] }}"
+                                        >
+                                            <div class="destination-group-letter">{{ group['letter'] }}</div>
+                                            <div class="destination-option-grid">
+                                                {% for item in group['items'] %}
+                                                    <button
+                                                        type="button"
+                                                        class="destination-option{% if item.slug in selected_scrape_destinations %} is-selected{% endif %}"
+                                                        data-destination-option
+                                                        data-slug="{{ item.slug }}"
+                                                        data-name="{{ item.name }}"
+                                                        data-bubble-label="{{ item.short_label }}"
+                                                        data-map-x="{{ item.map_x }}"
+                                                        data-map-y="{{ item.map_y }}"
+                                                    >
+                                                        {% if item.icon_url %}
+                                                            <img class="table-icon flag-icon" src="{{ item.icon_url }}" alt="{{ item.name }}">
+                                                        {% endif %}
+                                                        <span class="destination-option-name">{{ item.name }}</span>
+                                                    </button>
+                                                {% endfor %}
+                                            </div>
+                                        </section>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <p class="muted destination-empty is-hidden" data-destination-empty>{{ t.no_destination_results }}</p>
+                        </div>
+                    </div>
+                    <div class="hero-match-field">
+                        <input type="hidden" name="match_mode" value="{{ destination_match_mode }}" data-match-mode-value>
+                        <button
+                            type="button"
+                            class="hero-mode-toggle"
+                            data-match-mode-toggle
+                            aria-label="{{ t.match_mode }}"
+                            data-tooltip="{{ t.match_mode_help }}"
+                        >
+                            <span data-match-mode-label>
+                                {% if destination_match_mode == "relaxed" %}{{ t.relaxed_mode }}{% else %}{{ t.strict_mode }}{% endif %}
+                            </span>
+                        </button>
+                        <div class="hero-mode-tooltip" role="tooltip">
+                            {{ t.strict_mode }}: {{ t.strict_mode_help }}<br>
+                            {{ t.relaxed_mode }}: {{ t.relaxed_mode_help }}
+                        </div>
+                    </div>
+                    <button type="submit" class="hero-submit" data-scrape-submit>{{ t.get_started }}</button>
+                </form>
+            </div>
+            <div class="hero-map-panel startup-reveal" style="--reveal-delay: 300ms;">
+                <div class="hero-map-stage">
+                    <img
+                        class="hero-world-map"
+                        src="{{ url_for('static', path='/worldmap.svg') }}"
+                        alt=""
+                        aria-hidden="true"
+                        width="783"
+                        height="447"
+                        decoding="async"
+                    >
+                    <div class="hero-map-bubbles" data-destination-bubbles></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel browser-panel startup-reveal" style="--reveal-delay: 380ms;">
+            <form method="get" action="/" class="filter-grid browser-filter-grid">
+                <input type="hidden" name="lang" value="{{ lang }}">
+                <input type="hidden" name="sort_by" value="{{ filters.sort_by }}">
+                <input type="hidden" name="sort_order" value="{{ filters.sort_order }}">
+                <label class="browser-field">
+                    {{ t.destination }}
+                    <div class="browser-select-picker" data-browser-select>
+                        <input type="hidden" name="destination_slug" value="{{ filters.destination_slug }}" data-browser-select-value>
+                        <button type="button" class="browser-select-trigger" data-browser-select-trigger>
+                            <span data-browser-select-label>
+                                {% if filters.destination_slug %}
+                                    {% for destination in destinations %}
+                                        {% if filters.destination_slug == destination.destination_slug %}
+                                            {{ destination.destination_name }} ({{ destination.plan_count }})
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {{ t.all_destinations }}
+                                {% endif %}
+                            </span>
+                        </button>
+                        <div class="browser-select-menu is-hidden" data-browser-select-menu>
+                            <div class="destination-option-list">
+                                <button
+                                    type="button"
+                                    class="destination-option{% if not filters.destination_slug %} is-selected{% endif %}"
+                                    data-browser-select-option
+                                    data-value=""
+                                    data-label="{{ t.all_destinations }}"
+                                >
+                                    <span class="destination-option-name">{{ t.all_destinations }}</span>
+                                </button>
+                                {% for destination in destinations %}
+                                    <button
+                                        type="button"
+                                        class="destination-option{% if filters.destination_slug == destination.destination_slug %} is-selected{% endif %}"
+                                        data-browser-select-option
+                                        data-value="{{ destination.destination_slug }}"
+                                        data-label="{{ destination.destination_name }} ({{ destination.plan_count }})"
+                                    >
+                                        {% set destination_icon = destination_icon_url_for(destination.destination_slug, destination.destination_name) %}
+                                        {% if destination_icon %}
+                                            <img class="table-icon flag-icon" src="{{ destination_icon }}" alt="{{ destination.destination_name }}">
+                                        {% endif %}
+                                        <span class="destination-option-name">{{ destination.destination_name }} ({{ destination.plan_count }})</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <label class="browser-field">
+                    {{ t.provider }}
+                    <div class="browser-select-picker" data-browser-select>
+                        <input type="hidden" name="provider_slug" value="{{ filters.provider_slug }}" data-browser-select-value>
+                        <button type="button" class="browser-select-trigger" data-browser-select-trigger>
+                            <span data-browser-select-label>
+                                {% if filters.provider_slug %}
+                                    {% for provider in providers %}
+                                        {% if filters.provider_slug == provider.provider_slug %}
+                                            {{ provider.provider_name }} ({{ provider.plan_count }})
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {{ t.all_providers }}
+                                {% endif %}
+                            </span>
+                        </button>
+                        <div class="browser-select-menu is-hidden" data-browser-select-menu>
+                            <div class="destination-option-list">
+                                <button
+                                    type="button"
+                                    class="destination-option{% if not filters.provider_slug %} is-selected{% endif %}"
+                                    data-browser-select-option
+                                    data-value=""
+                                    data-label="{{ t.all_providers }}"
+                                >
+                                    <span class="destination-option-name">{{ t.all_providers }}</span>
+                                </button>
+                                {% for provider in providers %}
+                                    <button
+                                        type="button"
+                                        class="destination-option{% if filters.provider_slug == provider.provider_slug %} is-selected{% endif %}"
+                                        data-browser-select-option
+                                        data-value="{{ provider.provider_slug }}"
+                                        data-label="{{ provider.provider_name }} ({{ provider.plan_count }})"
+                                    >
+                                        {% set provider_icon = provider_icon_url_for(provider.provider_slug) %}
+                                        {% if provider_icon %}
+                                            <img class="table-icon provider-icon" src="{{ provider_icon }}" alt="{{ provider.provider_name }}">
+                                        {% endif %}
+                                        <span class="destination-option-name">{{ provider.provider_name }} ({{ provider.plan_count }})</span>
+                                    </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </label>
+                <label class="browser-field">
+                    {{ t.min_price }}
+                    <input type="number" step="0.01" name="min_price" value="{{ filters.min_price or '' }}">
+                </label>
+                <label class="browser-field">
+                    {{ t.max_price }}
+                    <input type="number" step="0.01" name="max_price" value="{{ filters.max_price or '' }}">
+                </label>
+                <label class="browser-field">
+                    {{ t.min_validity }}
+                    <input type="number" step="1" name="min_validity_days" value="{{ filters.min_validity_days or '' }}">
+                </label>
+                <label class="browser-field">
+                    {{ t.min_data }}
+                    <input type="number" step="0.1" name="min_data_gb" value="{{ ((filters.min_data_mb or 0) / 1024) if filters.min_data_mb else '' }}">
+                </label>
+                <div class="filter-actions">
+                    <button type="submit" class="filter-submit">{{ t.apply_filters }}</button>
+                    <a class="button ghost filter-reset" href="/?lang={{ lang }}">{{ t.reset }}</a>
+                    <span class="filter-actions-separator" aria-hidden="true">|</span>
+                    <a
+                        class="button secondary export-link"
+                        href="/export.csv?lang={{ lang }}&destination_slug={{ filters.destination_slug }}&provider_slug={{ filters.provider_slug }}&min_price={{ filters.min_price or '' }}&max_price={{ filters.max_price or '' }}&min_validity_days={{ filters.min_validity_days or '' }}&min_data_gb={{ ((filters.min_data_mb or 0) / 1024) if filters.min_data_mb else '' }}"
+                    >
+                        {{ t.download_csv }}
+                    </a>
+                </div>
+            </form>
+
+            {% if plans %}
+                <div class="table-wrap browser-table-wrap">
+                    <table class="browser-table">
+                        <thead>
+                            <tr>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('provider_name') }}">{{ t.provider }}<span class="table-sort-indicator">{{ sort_indicator_for('provider_name') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('destination_name') }}">{{ t.destination }}<span class="table-sort-indicator">{{ sort_indicator_for('destination_name') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('plan_name') }}">{{ t.plan }}<span class="table-sort-indicator">{{ sort_indicator_for('plan_name') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('data_amount_mb') }}">{{ t.data }}<span class="table-sort-indicator">{{ sort_indicator_for('data_amount_mb') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('validity_days') }}">{{ t.validity }}<span class="table-sort-indicator">{{ sort_indicator_for('validity_days') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('price_amount') }}">{{ t.price }}<span class="table-sort-indicator">{{ sort_indicator_for('price_amount') }}</span></a></th>
+                                <th><a class="table-sort-link" href="{{ sort_link_for('price_per_gb') }}">{{ t.price_per_gb }}<span class="table-sort-indicator">{{ sort_indicator_for('price_per_gb') }}</span></a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for plan in plans %}
+                                <tr class="browser-row-link" data-row-href="{{ plan.source_url }}">
+                                    <td>
+                                        <div class="cell-with-icon">
+                                            {% set provider_icon = provider_icon_url_for(plan.provider_slug) %}
+                                            {% if provider_icon %}
+                                                <img class="table-icon provider-icon" src="{{ provider_icon }}" alt="{{ plan.provider_name }}">
+                                            {% endif %}
+                                            <span>{{ plan.provider_name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="cell-with-icon">
+                                            {% set destination_icon = destination_icon_url_for(plan.destination_slug, plan.destination_name) %}
+                                            {% if destination_icon %}
+                                                <img class="table-icon flag-icon" src="{{ destination_icon }}" alt="{{ plan.destination_name }}">
+                                            {% endif %}
+                                            <span>{{ plan.destination_name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ plan.plan_name }}</td>
+                                    <td>{{ plan.data_amount_text }}</td>
+                                    <td>{% if plan.validity_days is not none %}{{ plan.validity_days }} {{ t.days_suffix }}{% else %}-{% endif %}</td>
+                                    <td>{% if plan.price_amount is not none %}${{ "%.2f"|format(plan.price_amount) }}{% else %}-{% endif %}</td>
+                                    <td>
+                                        {% if plan.price_per_gb is not none %}
+                                            <div class="price-gb-cell">
+                                                <span>${{ "%.2f"|format(plan.price_per_gb) }}</span>
+                                                {% set delta = price_per_gb_delta_for(plan.price_per_gb) %}
+                                                {% if delta %}
+                                                    <span class="delta-pill delta-{{ delta.tone }}">{{ delta.label }}</span>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <h3>{{ t.no_plans_title }}</h3>
+                    <p>{{ t.no_plans_body }}</p>
+                </div>
+            {% endif %}
+        </section>
+    </main>
+    <script>
+        (() => {
+            const scrapeForm = document.querySelector("[data-scrape-form]");
+            const loadingOverlay = document.getElementById("loading-overlay");
+            const scrapeButton = document.querySelector("[data-scrape-submit]");
+            const destinationPicker = document.querySelector("[data-destination-picker]");
+            const destinationBubbles = document.querySelector("[data-destination-bubbles]");
+            const browserSelects = Array.from(document.querySelectorAll("[data-browser-select]"));
+            if (!scrapeForm || !loadingOverlay || !scrapeButton || !destinationPicker) {
+                return;
+            }
+
+            const destinationValue = destinationPicker.querySelector("[data-destination-value]");
+            const destinationTrigger = destinationPicker.querySelector("[data-destination-trigger]");
+            const destinationMenu = destinationPicker.querySelector("[data-destination-menu]");
+            const destinationSearch = destinationPicker.querySelector("[data-destination-search]");
+            const matchModeValue = scrapeForm.querySelector("[data-match-mode-value]");
+            const matchModeToggle = scrapeForm.querySelector("[data-match-mode-toggle]");
+            const matchModeLabel = scrapeForm.querySelector("[data-match-mode-label]");
+            const destinationOptions = Array.from(
+                destinationPicker.querySelectorAll("[data-destination-option]")
+            );
+            const destinationGroups = Array.from(
+                destinationPicker.querySelectorAll("[data-destination-group]")
+            );
+            const destinationIndexLinks = Array.from(
+                destinationPicker.querySelectorAll("[data-destination-index-link]")
+            );
+            const destinationGroupList = destinationPicker.querySelector("[data-destination-options]");
+            const destinationEmpty = destinationPicker.querySelector("[data-destination-empty]");
+            const defaultDestinationPlaceholder = {{ destination_picker_placeholder|tojson }};
+            const richPlaceholder = destinationPicker.querySelector("[data-destination-rich-placeholder]");
+            const sanitizeDestinationLabel = (name, slug) => {
+                const cleaned = (name || "")
+                    .replace(/(?:[\uD83C][\uDDE6-\uDDFF]){2}\s*/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+                if (!cleaned) {
+                    return (slug || "")
+                        .split("-")
+                        .filter(Boolean)
+                        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+                        .join(" ");
+                }
+                const normalizedSlug = (slug || "").trim().toLowerCase();
+                const comparableSlug = normalizedSlug.replace(/-/g, "");
+                const slugInitials = normalizedSlug
+                    .split("-")
+                    .filter(Boolean)
+                    .map((part) => part[0] || "")
+                    .join("")
+                    .toLowerCase();
+                let next = cleaned.replace(
+                    new RegExp(`^(?:${normalizedSlug.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")}|${comparableSlug.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")})\\s+`, "i"),
+                    ""
+                ).trim();
+                const match = next.match(/^([A-Za-z]{2,3})\s+(.+)$/);
+                if (match) {
+                    const leading = match[1].toLowerCase();
+                    const remainder = match[2].trim();
+                    if (
+                        leading === comparableSlug ||
+                        leading === normalizedSlug ||
+                        leading === slugInitials ||
+                        comparableSlug.startsWith(leading)
+                    ) {
+                        next = remainder;
+                    }
+                }
+                next = next.replace(/^[A-Z]{2,3}\s+(?=[A-Z][a-z])/, "").trim();
+                return next || cleaned;
+            };
+            const selectedDestinations = new Set(
+                (destinationValue.value || "")
+                    .split(",")
+                    .map((value) => value.trim().toLowerCase())
+                    .filter(Boolean)
+            );
+            let previouslyRenderedDestinations = new Set(selectedDestinations);
+            const matchModeLabels = {
+                strict: "{{ t.strict_mode }}",
+                relaxed: "{{ t.relaxed_mode }}",
+            };
+
+            destinationOptions.forEach((option) => {
+                const slug = option.dataset.slug || "";
+                const existingIcon = option.querySelector("img");
+                const sanitizedName = sanitizeDestinationLabel(option.dataset.name || "", slug);
+                option.dataset.name = sanitizedName;
+                option.replaceChildren();
+                if (existingIcon) {
+                    option.appendChild(existingIcon.cloneNode(true));
+                }
+                const nameNode = document.createElement("span");
+                nameNode.className = "destination-option-name";
+                nameNode.textContent = sanitizedName;
+                option.appendChild(nameNode);
+            });
+
+            let submitting = false;
+            const openDestinationMenu = () => {
+                destinationMenu.classList.remove("is-hidden");
+                destinationSearch.placeholder = {{ t.search_destinations|tojson }};
+                richPlaceholder?.classList.add("is-hidden");
+            };
+
+            const closeDestinationMenu = () => {
+                destinationMenu.classList.add("is-hidden");
+                destinationSearch.value = "";
+                destinationSearch.placeholder = defaultDestinationPlaceholder;
+                richPlaceholder?.classList.toggle("is-hidden", Boolean(destinationSearch.value));
+                filterDestinationOptions();
+            };
+
+            const syncRichPlaceholder = () => {
+                if (!richPlaceholder) {
+                    return;
+                }
+                const shouldHide =
+                    document.activeElement === destinationSearch || Boolean((destinationSearch.value || "").trim());
+                richPlaceholder.classList.toggle("is-hidden", shouldHide);
+            };
+
+            const syncDestinationValue = () => {
+                destinationValue.value = Array.from(selectedDestinations).join(",");
+            };
+
+            const renderDestinationBubbles = () => {
+                if (destinationBubbles) {
+                    destinationBubbles.innerHTML = "";
+                }
+                const selectedOptions = destinationOptions.filter((option) => {
+                    const slug = option.dataset.slug || "";
+                    option.classList.toggle("is-selected", selectedDestinations.has(slug));
+                    return selectedDestinations.has(slug);
+                });
+
+                const placedAnchors = [];
+                const collisionOffsets = [
+                    [0, 0],
+                    [7.5, -4.5],
+                    [-7.5, -4.5],
+                    [0, -8.5],
+                    [11, -2.5],
+                    [-11, -2.5],
+                    [8.5, -10],
+                    [-8.5, -10],
+                ];
+
+                selectedOptions.forEach((option) => {
+                    if (!destinationBubbles) {
+                        return;
+                    }
+
+                    const slug = option.dataset.slug || "";
+                    const baseX = Number(option.dataset.mapX || 50);
+                    const baseY = Number(option.dataset.mapY || 50);
+
+                    let collisionCount = 0;
+                    placedAnchors.forEach((anchor) => {
+                        if (Math.abs(anchor.x - baseX) < 10 && Math.abs(anchor.y - baseY) < 8) {
+                            collisionCount += 1;
+                        }
+                    });
+
+                    const [offsetX, offsetY] = collisionOffsets[
+                        Math.min(collisionCount, collisionOffsets.length - 1)
+                    ];
+                    const placedX = baseX + offsetX;
+                    const placedY = baseY + offsetY;
+                    placedAnchors.push({ x: placedX, y: placedY });
+
+                    const bubble = document.createElement("button");
+                    bubble.type = "button";
+                    bubble.className = "hero-map-bubble";
+                    if (!previouslyRenderedDestinations.has(slug)) {
+                        bubble.classList.add("is-entering");
+                    }
+                    bubble.dataset.removeDestination = slug;
+                    bubble.style.left = `${placedX}%`;
+                    bubble.style.top = `${placedY}%`;
+
+                    const image = option.querySelector("img");
+                    if (image) {
+                        const clonedImage = image.cloneNode(true);
+                        bubble.appendChild(clonedImage);
+                    }
+                    const text = document.createElement("span");
+                    text.className = "hero-map-bubble-label";
+                    text.textContent = option.dataset.bubbleLabel || option.dataset.slug || slug;
+                    bubble.appendChild(text);
+                    destinationBubbles.appendChild(bubble);
+                });
+                syncDestinationValue();
+                previouslyRenderedDestinations = new Set(selectedDestinations);
+            };
+
+            const filterDestinationOptions = () => {
+                const keyword = (destinationSearch.value || "").trim().toLowerCase();
+                let visibleCount = 0;
+                destinationOptions.forEach((option) => {
+                    const haystack = `${option.dataset.name || ""} ${option.dataset.slug || ""}`.toLowerCase();
+                    const visible = !keyword || haystack.includes(keyword);
+                    option.classList.toggle("is-hidden", !visible);
+                    if (visible) {
+                        visibleCount += 1;
+                    }
+                });
+                destinationGroups.forEach((group) => {
+                    const visibleOptions = group.querySelectorAll("[data-destination-option]:not(.is-hidden)");
+                    group.classList.toggle("is-hidden", visibleOptions.length === 0);
+                });
+                destinationIndexLinks.forEach((link) => {
+                    const letter = link.dataset.letter || "";
+                    const group = destinationPicker.querySelector(
+                        `[data-destination-group][data-letter="${letter}"]`
+                    );
+                    link.classList.toggle("is-hidden", !group || group.classList.contains("is-hidden"));
+                });
+                destinationEmpty.classList.toggle("is-hidden", visibleCount > 0);
+            };
+
+            const syncActiveDestinationIndex = () => {
+                if (!destinationGroupList) {
+                    return;
+                }
+                const visibleGroups = destinationGroups.filter(
+                    (group) => !group.classList.contains("is-hidden")
+                );
+                const activeGroup = visibleGroups.find((group) => {
+                    const threshold = destinationGroupList.scrollTop + 24;
+                    return group.offsetTop + group.offsetHeight > threshold;
+                }) || visibleGroups[0];
+                const activeLetter = activeGroup?.dataset.letter || "";
+                destinationIndexLinks.forEach((link) => {
+                    link.classList.toggle("is-active", (link.dataset.letter || "") === activeLetter);
+                });
+            };
+
+            renderDestinationBubbles();
+            filterDestinationOptions();
+            syncActiveDestinationIndex();
+            syncRichPlaceholder();
+
+            if (matchModeValue && matchModeToggle && matchModeLabel) {
+                matchModeToggle.addEventListener("click", () => {
+                    const nextMode = matchModeValue.value === "relaxed" ? "strict" : "relaxed";
+                    matchModeValue.value = nextMode;
+                    matchModeLabel.textContent = matchModeLabels[nextMode];
+                });
+            }
+
+            destinationTrigger.addEventListener("focus", openDestinationMenu);
+            destinationTrigger.addEventListener("click", openDestinationMenu);
+            destinationTrigger.addEventListener("blur", syncRichPlaceholder);
+
+            destinationSearch.addEventListener("input", () => {
+                filterDestinationOptions();
+                syncRichPlaceholder();
+            });
+            destinationSearch.addEventListener("keydown", (event) => {
+                if (event.key === "Escape") {
+                    closeDestinationMenu();
+                    destinationTrigger.blur();
+                }
+            });
+            destinationSearch.addEventListener("focus", syncRichPlaceholder);
+            destinationSearch.addEventListener("blur", syncRichPlaceholder);
+
+            destinationOptions.forEach((option) => {
+                option.addEventListener("click", () => {
+                    const slug = option.dataset.slug || "";
+                    if (!slug) {
+                        return;
+                    }
+                    if (selectedDestinations.has(slug)) {
+                        selectedDestinations.delete(slug);
+                    } else {
+                        selectedDestinations.add(slug);
+                    }
+                    renderDestinationBubbles();
+                    filterDestinationOptions();
+                });
+            });
+
+            destinationIndexLinks.forEach((link) => {
+                link.addEventListener("click", () => {
+                    const letter = link.dataset.letter || "";
+                    const group = destinationPicker.querySelector(
+                        `[data-destination-group][data-letter="${letter}"]`
+                    );
+                    if (!group || !destinationGroupList) {
+                        return;
+                    }
+                    destinationGroupList.scrollTo({
+                        top: group.offsetTop - 12,
+                        behavior: "smooth",
+                    });
+                });
+            });
+
+            destinationGroupList?.addEventListener("scroll", syncActiveDestinationIndex);
+
+            if (destinationBubbles) {
+                destinationBubbles.addEventListener("click", (event) => {
+                    const trigger = event.target.closest("[data-remove-destination]");
+                    if (!trigger) {
+                        return;
+                    }
+                    selectedDestinations.delete(trigger.dataset.removeDestination || "");
+                    renderDestinationBubbles();
+                    filterDestinationOptions();
+                });
+            }
+
+            document.addEventListener("click", (event) => {
+                if (!destinationPicker.contains(event.target)) {
+                    closeDestinationMenu();
+                }
+                browserSelects.forEach((picker) => {
+                    if (!picker.contains(event.target)) {
+                        const menu = picker.querySelector("[data-browser-select-menu]");
+                        menu?.classList.add("is-hidden");
+                    }
+                });
+            });
+
+            browserSelects.forEach((picker) => {
+                const trigger = picker.querySelector("[data-browser-select-trigger]");
+                const menu = picker.querySelector("[data-browser-select-menu]");
+                const hiddenInput = picker.querySelector("[data-browser-select-value]");
+                const label = picker.querySelector("[data-browser-select-label]");
+                const options = Array.from(picker.querySelectorAll("[data-browser-select-option]"));
+                if (!trigger || !menu || !hiddenInput || !label) {
+                    return;
+                }
+
+                trigger.addEventListener("click", () => {
+                    const willOpen = menu.classList.contains("is-hidden");
+                    browserSelects.forEach((otherPicker) => {
+                        otherPicker.querySelector("[data-browser-select-menu]")?.classList.add("is-hidden");
+                    });
+                    menu.classList.toggle("is-hidden", !willOpen);
+                });
+
+                options.forEach((option) => {
+                    option.addEventListener("click", () => {
+                        const value = option.dataset.value || "";
+                        const nextLabel = option.dataset.label || "";
+                        hiddenInput.value = value;
+                        label.textContent = nextLabel;
+                        options.forEach((item) => item.classList.remove("is-selected"));
+                        option.classList.add("is-selected");
+                        menu.classList.add("is-hidden");
+                    });
+                });
+            });
+
+            document.querySelectorAll("[data-row-href]").forEach((row) => {
+                row.addEventListener("click", (event) => {
+                    if (event.target.closest("a, button, input, select, label")) {
+                        return;
+                    }
+                    const href = row.dataset.rowHref;
+                    if (href) {
+                        window.open(href, "_blank", "noopener,noreferrer");
+                    }
+                });
+            });
+
+            const showOverlay = () => {
+                loadingOverlay.classList.remove("is-hidden");
+                loadingOverlay.setAttribute("aria-hidden", "false");
+                document.body.classList.add("loading-active");
+                scrapeButton.disabled = true;
+            };
+
+            const hideOverlay = () => {
+                loadingOverlay.classList.add("is-hidden");
+                loadingOverlay.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("loading-active");
+                scrapeButton.disabled = false;
+                submitting = false;
+            };
+
+            const refreshOverlayFromStatus = async () => {
+                try {
+                    const response = await fetch("/api/scrape-status", {
+                        headers: { "X-Requested-With": "fetch" },
+                        cache: "no-store"
+                    });
+                    const payload = await response.json();
+                    if (payload.running) {
+                        submitting = true;
+                        showOverlay();
+                    } else {
+                        hideOverlay();
+                    }
+                } catch (error) {
+                    hideOverlay();
+                }
+            };
+
+            const pollUntilFinished = async () => {
+                while (true) {
+                    const response = await fetch("/api/scrape-status", {
+                        headers: { "X-Requested-With": "fetch" },
+                        cache: "no-store"
+                    });
+                    const payload = await response.json();
+                    if (!payload.running) {
+                        window.location.reload();
+                        return;
+                    }
+                    await new Promise((resolve) => window.setTimeout(resolve, 1500));
+                }
+            };
+
+            window.addEventListener("pageshow", refreshOverlayFromStatus);
+            refreshOverlayFromStatus();
+
+            scrapeForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                if (submitting) {
+                    return;
+                }
+                submitting = true;
+                showOverlay();
+
+                try {
+                    const response = await fetch("/api/scrape-start", {
+                        method: "POST",
+                        body: new FormData(scrapeForm),
+                        headers: { "X-Requested-With": "fetch" },
+                        cache: "no-store"
+                    });
+                    if (!response.ok) {
+                        window.location.reload();
+                        return;
+                    }
+                    await pollUntilFinished();
+                } catch (error) {
+                    window.location.reload();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

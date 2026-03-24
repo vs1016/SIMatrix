@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.docs_page_title }}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/brand-icon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', path='/brand-icon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+</head>
+<body class="docs-page">
+    <div class="app-gradient-bg" aria-hidden="true">
+        <div class="app-gradient-grid"></div>
+    </div>
+    <main class="shell docs-shell">
+        <header class="topbar startup-reveal" style="--reveal-delay: 0ms;">
+            <a class="brand-mark" href="/?lang={{ lang }}">RTG.</a>
+            <nav class="topbar-nav" aria-label="Top navigation">
+                <a class="topbar-link topbar-language-toggle" href="/docs?lang={{ alt_lang }}">
+                    <span>{{ t.language_zh }}</span>
+                    <span class="topbar-separator">/</span>
+                    <span>{{ t.language_en }}</span>
+                </a>
+                <a class="topbar-link" href="/?lang={{ lang }}">{{ t.docs_back_home }}</a>
+                <a class="topbar-link topbar-docs" href="/api/docs" target="_blank" rel="noreferrer">{{ t.docs_api_docs }}</a>
+            </nav>
+        </header>
+
+        <section class="docs-hero startup-reveal" style="--reveal-delay: 80ms;">
+            <h1 class="docs-title">{{ t.docs_heading }}</h1>
+            <p class="docs-subtitle">{{ t.docs_lede }}</p>
+        </section>
+
+        <section class="docs-intake startup-reveal" style="--reveal-delay: 140ms;">
+            <article class="docs-card docs-intake-card">
+                <div class="docs-card-header">
+                    <div>
+                        <h2>{{ t.docs_form_title }}</h2>
+                        <p>{{ t.docs_form_body }}</p>
+                    </div>
+                    <p class="docs-card-count" data-provider-count>{{ provider_catalog_count_text }}</p>
+                </div>
+                <form class="docs-provider-form" data-provider-form>
+                    <input type="hidden" name="lang" value="{{ lang }}">
+                    <label class="docs-field">
+                        <span>{{ t.docs_url_label }}</span>
+                        <input
+                            type="url"
+                            name="website_url"
+                            placeholder="{{ t.docs_url_placeholder }}"
+                            required
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                    </label>
+                    <button type="submit" class="docs-submit-button" data-provider-submit>{{ t.docs_add_provider }}</button>
+                </form>
+                <p class="docs-manage-hint">{{ t.docs_manage_hint }}</p>
+                <div class="docs-feedback" data-provider-feedback aria-live="polite"></div>
+            </article>
+        </section>
+
+        <section class="docs-card docs-table-card startup-reveal" style="--reveal-delay: 220ms;">
+            <div class="docs-card-header">
+                <div>
+                    <h2>{{ provider_catalog_count_text }}</h2>
+                    <p>{{ t.docs_manage_hint }}</p>
+                </div>
+            </div>
+            <div class="docs-empty-state{% if provider_catalog %} is-hidden{% endif %}" data-provider-empty-state>
+                <h3>{{ t.docs_empty_title }}</h3>
+                <p>{{ t.docs_empty_body }}</p>
+            </div>
+            <div class="docs-provider-table-wrap{% if not provider_catalog %} is-hidden{% endif %}" data-provider-table-wrap>
+                <table class="docs-provider-table">
+                    <thead>
+                        <tr>
+                            <th>{{ t.docs_table_provider }}</th>
+                            <th>{{ t.docs_table_slug }}</th>
+                            <th>{{ t.docs_table_source }}</th>
+                            <th>{{ t.docs_table_website }}</th>
+                            <th>{{ t.docs_table_added }}</th>
+                            <th>{{ t.docs_table_actions }}</th>
+                        </tr>
+                    </thead>
+                    <tbody data-provider-table-body>
+                        {% for provider in provider_catalog %}
+                            <tr>
+                                <td>
+                                    <div class="docs-provider-cell">
+                                        {% if provider.icon_url %}
+                                            <img class="docs-provider-icon" src="{{ provider.icon_url }}" alt="{{ provider.provider_name }}">
+                                        {% else %}
+                                            <span class="docs-provider-fallback">{{ provider.provider_name[:1].upper() }}</span>
+                                        {% endif %}
+                                        <span>{{ provider.provider_name }}</span>
+                                    </div>
+                                </td>
+                                <td><code>{{ provider.provider_slug }}</code></td>
+                                <td>
+                                    {% if provider.website_url %}
+                                        <a href="{{ provider.website_url }}" target="_blank" rel="noreferrer">{{ provider.website_url }}</a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if provider.official_website_url %}
+                                        <a href="{{ provider.official_website_url }}" target="_blank" rel="noreferrer">{{ provider.official_website_url }}</a>
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td>{{ provider.added_at_display }}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="docs-delete-button"
+                                        data-provider-delete
+                                        data-provider-slug="{{ provider.provider_slug }}"
+                                        data-provider-name="{{ provider.provider_name }}"
+                                    >
+                                        {{ t.docs_delete }}
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (() => {
+            const providerForm = document.querySelector('[data-provider-form]');
+            const providerFeedback = document.querySelector('[data-provider-feedback]');
+            const providerCount = document.querySelector('[data-provider-count]');
+            const providerTableBody = document.querySelector('[data-provider-table-body]');
+            const providerEmptyState = document.querySelector('[data-provider-empty-state]');
+            const providerTableWrap = document.querySelector('[data-provider-table-wrap]');
+            const providerSubmit = document.querySelector('[data-provider-submit]');
+            const providerCountTemplate = {{ t.docs_provider_count|tojson }};
+            const deleteLabel = {{ t.docs_delete|tojson }};
+            const loadingLabel = {{ t.docs_submit_loading|tojson }};
+            const defaultSubmitLabel = {{ t.docs_add_provider|tojson }};
+            const emptyTitle = {{ t.docs_empty_title|tojson }};
+            const emptyBody = {{ t.docs_empty_body|tojson }};
+            const currentLang = {{ lang|tojson }};
+            let providers = {{ provider_catalog_json|tojson }};
+
+            function escapeHtml(value) {
+                return String(value ?? '')
+                    .replaceAll('&', '&amp;')
+                    .replaceAll('<', '&lt;')
+                    .replaceAll('>', '&gt;')
+                    .replaceAll('"', '&quot;')
+                    .replaceAll("'", '&#39;');
+            }
+
+            function providerCountText(count) {
+                return providerCountTemplate.replace('{count}', String(count));
+            }
+
+            function renderProviders() {
+                providerCount.textContent = providerCountText(providers.length);
+                const headerCount = document.querySelector('.docs-table-card .docs-card-header h2');
+                if (headerCount) {
+                    headerCount.textContent = providerCountText(providers.length);
+                }
+
+                if (!providers.length) {
+                    providerEmptyState.classList.remove('is-hidden');
+                    providerTableWrap.classList.add('is-hidden');
+                    providerEmptyState.innerHTML = `<h3>${escapeHtml(emptyTitle)}</h3><p>${escapeHtml(emptyBody)}</p>`;
+                    providerTableBody.innerHTML = '';
+                    return;
+                }
+
+                providerEmptyState.classList.add('is-hidden');
+                providerTableWrap.classList.remove('is-hidden');
+                providerTableBody.innerHTML = providers.map((provider) => {
+                    const iconMarkup = provider.icon_url
+                        ? `<img class="docs-provider-icon" src="${escapeHtml(provider.icon_url)}" alt="${escapeHtml(provider.provider_name)}">`
+                        : `<span class="docs-provider-fallback">${escapeHtml((provider.provider_name || provider.provider_slug || '?').slice(0, 1).toUpperCase())}</span>`;
+                    const websiteMarkup = provider.website_url
+                        ? `<a href="${escapeHtml(provider.website_url)}" target="_blank" rel="noreferrer">${escapeHtml(provider.website_url)}</a>`
+                        : '-';
+                    const officialMarkup = provider.official_website_url
+                        ? `<a href="${escapeHtml(provider.official_website_url)}" target="_blank" rel="noreferrer">${escapeHtml(provider.official_website_url)}</a>`
+                        : '-';
+                    return `
+                        <tr>
+                            <td>
+                                <div class="docs-provider-cell">
+                                    ${iconMarkup}
+                                    <span>${escapeHtml(provider.provider_name)}</span>
+                                </div>
+                            </td>
+                            <td><code>${escapeHtml(provider.provider_slug)}</code></td>
+                            <td>${websiteMarkup}</td>
+                            <td>${officialMarkup}</td>
+                            <td>${escapeHtml(provider.added_at_display || '')}</td>
+                            <td>
+                                <button
+                                    type="button"
+                                    class="docs-delete-button"
+                                    data-provider-delete
+                                    data-provider-slug="${escapeHtml(provider.provider_slug)}"
+                                    data-provider-name="${escapeHtml(provider.provider_name)}"
+                                >
+                                    ${escapeHtml(deleteLabel)}
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+            }
+
+            function setFeedback(message, tone = 'success') {
+                providerFeedback.textContent = message || '';
+                providerFeedback.classList.toggle('is-error', tone === 'error');
+                providerFeedback.classList.toggle('is-success', tone === 'success');
+            }
+
+            async function readPayload(response) {
+                const rawText = await response.text();
+                try {
+                    return JSON.parse(rawText);
+                } catch (error) {
+                    return { error: rawText || 'Request failed.' };
+                }
+            }
+
+            providerForm?.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                setFeedback('');
+                providerSubmit.disabled = true;
+                providerSubmit.textContent = loadingLabel;
+                try {
+                    const response = await fetch('/api/providers', {
+                        method: 'POST',
+                        body: new FormData(providerForm),
+                    });
+                    const payload = await readPayload(response);
+                    if (!response.ok) {
+                        throw new Error(payload.error || 'Request failed.');
+                    }
+                    providers = payload.providers || [];
+                    renderProviders();
+                    setFeedback(payload.message || '', 'success');
+                    providerForm.reset();
+                    providerForm.querySelector('input[name="lang"]').value = currentLang;
+                } catch (error) {
+                    setFeedback(error.message || 'Request failed.', 'error');
+                } finally {
+                    providerSubmit.disabled = false;
+                    providerSubmit.textContent = defaultSubmitLabel;
+                }
+            });
+
+            providerTableBody?.addEventListener('click', async (event) => {
+                const deleteButton = event.target.closest('[data-provider-delete]');
+                if (!deleteButton) {
+                    return;
+                }
+                const providerSlug = deleteButton.getAttribute('data-provider-slug');
+                if (!providerSlug) {
+                    return;
+                }
+                deleteButton.disabled = true;
+                try {
+                    const response = await fetch(`/api/providers/${encodeURIComponent(providerSlug)}?lang=${encodeURIComponent(currentLang)}`, {
+                        method: 'DELETE',
+                    });
+                    const payload = await readPayload(response);
+                    if (!response.ok) {
+                        throw new Error(payload.error || 'Request failed.');
+                    }
+                    providers = payload.providers || [];
+                    renderProviders();
+                    setFeedback(payload.message || '', 'success');
+                } catch (error) {
+                    setFeedback(error.message || 'Request failed.', 'error');
+                    deleteButton.disabled = false;
+                }
+            });
+
+            renderProviders();
+        })();
+    </script>
+</body>
+</html>
